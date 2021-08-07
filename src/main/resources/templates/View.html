@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>まうすかうんたー</title>
+</head>
+<body>
+<table border="1">
+        <tr>
+            <th>日付</th>
+            <th>サイズ</th>
+            <th>♂</th>
+            <th>♀</th>
+        </tr>
+        <tr th:each="m: ${mouse}">
+            <td th:text="${m.date}"></td>
+            <td th:text="${m.size}"></td>
+            <td th:text="${m.male}"></td>
+            <td th:text="${m.female}"></td>
+        </tr>
+    </table>
+
+
+</body>
+</html>
