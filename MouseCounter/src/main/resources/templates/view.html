@@ -7,19 +7,19 @@
 <body>
 <h1>まうすかうんたー</h1>
 <table border="1">
-        <tr>
-            <th>日付</th>
-            <th>サイズ</th>
-            <th>♂</th>
-            <th>♀</th>
-        </tr>
-        <tr th:each="m: ${mouse}">
-            <td th:text="${m.date}"></td>
-            <td th:text="${m.size}"></td>
-            <td th:text="${m.male}"></td>
-            <td th:text="${m.female}"></td>
-        </tr>
-    </table>
+	<tr>
+		<th>日付</th>
+		<th>サイズ</th>
+		<th>♂</th>
+		<th>♀</th>
+	</tr>
+	<tr th:each="m: ${mouse}">
+		<td th:text="${m.registration_date}"></td>
+		<td th:text="${m.size}"></td>
+		<td th:text="${m.male_of_stock}"></td>
+		<td th:text="${m.female_of_stock}"></td>
+	</tr>
+</table>
 <p>離乳したマウスの数を入力するでちゅう</p>
 <form method="post" action="/">
 	<select name="size">
@@ -29,11 +29,11 @@
 	</select>
 	<label>
 		♂:
-		<input type="number" name="male">
+		<input type="number" name="male_of_stock">
 	</label>
 	<label>
 		♀:
-		<input type="number" name="female">
+		<input type="number" name="female_of_stock">
 	</label>
 	<input type="submit" value="送信するでちゅう" />
 </form>
