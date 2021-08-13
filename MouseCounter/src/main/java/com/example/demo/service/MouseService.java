@@ -20,15 +20,15 @@ public class MouseService {
 		return mouseRepository.select();
 	}
 	public List<MiceTotalEntity> miceTotal() {
-		List<MiceTotalEntity> list = new ArrayList<MiceTotalEntity>();
+		List<MiceTotalEntity> totalList = new ArrayList<MiceTotalEntity>();
 		List<String> sizeList = new ArrayList<String>();
 		sizeList.add("'アダルト'");
 		sizeList.add("'ヤング'");
 		sizeList.add("'ホッパー'");
-		for (int i = 0; i < sizeList.size(); i++) {
-			list.add(mouseRepository.selectTotal(sizeList.get(i)));
+		for (String string : sizeList) {
+			totalList.add(mouseRepository.selectTotal(string));
 		}
-		return list;
+		return totalList;
 	}
 	
 	
@@ -42,10 +42,5 @@ public class MouseService {
 	
 	public void mouseDataDelete(MouseEntity mouseEntity) {
 		mouseRepository.delete(mouseEntity);
-	}
-	
-	public void inputCheck(MouseEntity mouseEntity) {
-		
-		
 	}
 }

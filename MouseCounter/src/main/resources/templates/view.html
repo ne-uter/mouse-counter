@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/css/albino.css}" rel="stylesheet" >
 <title>まうすかうんたー</title>
 </head>
 <body>
 <h1>まうすかうんたー</h1>
-<table border="1">
+<table>
 	<tr>
 		<th>ID</th>
 		<th>日付</th>
@@ -21,14 +22,17 @@
 		<td th:text="${m.male_of_stock}"></td>
 		<td th:text="${m.female_of_stock}"></td>
 	</tr>
-	<tr bgcolor="pink">
-		<td colspan="2" rowspan="3" align="center">合計</td>
+		<tr  class="total">
+		<td colspan="2" rowspan="4" align="center">合計</td>
+		<th>サイズ</th>
+		<th>♂</th>
+		<th>♀</th>
 	</tr>
-	<!-- <tr th:each="t: ${total}" bgcolor="pink">
-		<<td th:text="{$t.males_total}"></td>
-		<td></td>
-		<td></td>
-	</tr>-->
+	<tr th:each="t: ${total}"  class="total">
+		<td th:text="${t.size}"></td>
+		<td th:text="${t.males_total}"></td>
+		<td th:text="${t.females_total}"></td>
+	</tr>
 </table>
 <p>離乳したマウスの数を入力するでちゅう</p>
 <form method="post" action="/">
@@ -45,7 +49,7 @@
 		♀:
 		<input type="number" name="female_of_stock">
 	</label>
-	<input type="submit" name="create" value="送信するでちゅう" />
+	<input type="submit" name="create" value="送信するでちゅう" class="inputButton">
 </form>
 <br>
 <form method="post" action="/">

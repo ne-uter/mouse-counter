@@ -1,0 +1,27 @@
+@charset "UTF-8";
+h1{
+	color : #FFD5EA;
+}
+
+table,th,td{
+	border : solid 2px  #FFD5EA;
+}
+
+.total{
+	background-color : pink;
+}
+
+select{
+	border : inset 2px #FFD5EA;
+}
+
+input{
+	border : inset 2px #FFD5EA;
+}
+
+button,.inputButton{
+	border-radius : 20px;  
+	border : solid 1px  pink;
+	background-color : #FFD5EA;
+
+}
