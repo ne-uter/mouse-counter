@@ -1,10 +1,14 @@
 package com.example.demo.entity;
 
+import javax.validation.constraints.NotNull;
+
 public class MouseEntity {
 	private int id;
 	private String registration_date;
 	private String size;
+	@NotNull
 	private int male_of_stock;
+	@NotNull
 	private int female_of_stock;
 	
 	public void setId(int id) {

@@ -8,6 +8,14 @@
 	from adult_mice;
 	</select>
 	
+	<select id="selectTotal" resultType="com.example.demo.entity.MiceTotalEntity">
+	select  size,males_total,females_total
+	from mice_total
+	where size = ${size}
+	
+	</select>
+	
+	
 	<insert id="insert">
 	insert into adult_mice (
 	registration_date, size, male_of_stock, female_of_stock
@@ -19,4 +27,15 @@
 	 )
 	</insert>
 	
+	<update id="update">
+	update adult_mice
+	set male_of_stock = ${male_of_stock},female_of_stock = ${female_of_stock}
+	where id = ${id}
+	</update>
+	
+	<delete id="delete">
+	delete
+	from adult_mice
+	where id = ${id}
+	</delete>
 </mapper>

@@ -1,10 +1,12 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.MiceTotalEntity;
 import com.example.demo.entity.MouseEntity;
 import com.example.demo.repository.MouseRepository;
 
@@ -16,10 +18,34 @@ public class MouseService {
 	
 	public List<MouseEntity> selectAll() {
 		return mouseRepository.select();
-		
 	}
+	public List<MiceTotalEntity> miceTotal() {
+		List<MiceTotalEntity> list = new ArrayList<MiceTotalEntity>();
+		List<String> sizeList = new ArrayList<String>();
+		sizeList.add("'アダルト'");
+		sizeList.add("'ヤング'");
+		sizeList.add("'ホッパー'");
+		for (int i = 0; i < sizeList.size(); i++) {
+			list.add(mouseRepository.selectTotal(sizeList.get(i)));
+		}
+		return list;
+	}
+	
 	
 	public void mouseRegister(MouseEntity mouseEntity) {
 		mouseRepository.insert(mouseEntity);
+	}
+	
+	public void mouseDataUpdate(MouseEntity mouseEntity) {
+		mouseRepository.update(mouseEntity);
+	}
+	
+	public void mouseDataDelete(MouseEntity mouseEntity) {
+		mouseRepository.delete(mouseEntity);
+	}
+	
+	public void inputCheck(MouseEntity mouseEntity) {
+		
+		
 	}
 }

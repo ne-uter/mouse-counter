@@ -8,17 +8,27 @@
 <h1>まうすかうんたー</h1>
 <table border="1">
 	<tr>
+		<th>ID</th>
 		<th>日付</th>
 		<th>サイズ</th>
 		<th>♂</th>
 		<th>♀</th>
 	</tr>
 	<tr th:each="m: ${mouse}">
+		<td th:text="${m.id}"></td>
 		<td th:text="${m.registration_date}"></td>
 		<td th:text="${m.size}"></td>
 		<td th:text="${m.male_of_stock}"></td>
 		<td th:text="${m.female_of_stock}"></td>
 	</tr>
+	<tr bgcolor="pink">
+		<td colspan="2" rowspan="3" align="center">合計</td>
+	</tr>
+	<!-- <tr th:each="t: ${total}" bgcolor="pink">
+		<<td th:text="{$t.males_total}"></td>
+		<td></td>
+		<td></td>
+	</tr>-->
 </table>
 <p>離乳したマウスの数を入力するでちゅう</p>
 <form method="post" action="/">
@@ -35,8 +45,27 @@
 		♀:
 		<input type="number" name="female_of_stock">
 	</label>
-	<input type="submit" value="送信するでちゅう" />
+	<input type="submit" name="create" value="送信するでちゅう" />
 </form>
-
+<br>
+<form method="post" action="/">
+<p>IDを指定して書き替えられるでちゅう</p>
+	<label>
+		ID:
+		<input type="number" name="id" required>
+	</label>
+	<label>
+		♂:
+		<input type="number" name="male_of_stock">
+	</label>
+	<label>
+		♀:
+		<input type="number" name="female_of_stock">
+	</label>
+	<br>
+	<button type="submit" name="update">登録済みデータの変更</button>
+	<button type="submit" name="delete">登録済みデータの削除</button>
+	<br>
+</form>
 </body>
 </html>
