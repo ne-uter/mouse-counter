@@ -48,7 +48,6 @@ public class MCController {
 		mouseService.mouseRegister(mouseEntity);
 		index(model); //表をリロード
 		return "redirect:/";
-		
 	}
 	
 	//データ更新

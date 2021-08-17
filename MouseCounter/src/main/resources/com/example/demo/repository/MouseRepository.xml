@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.repository.MouseRepository">
-	<select id="select" resultType="com.example.demo.entity.MouseEntity">
+	<select id="selectAll" resultType="com.example.demo.entity.MouseEntity">
 	select *
 	from adult_mice;
 	</select>
@@ -12,24 +12,34 @@
 	select  size,males_total,females_total
 	from mice_total
 	where size = ${size}
-	
 	</select>
 	
+	<select id="selectOne" resultType="com.example.demo.entity.MouseEntity">
+	select *
+	from adult_mice
+	where id = ${id}
+	</select>
 	
 	<insert id="insert">
 	insert into adult_mice (
 	registration_date, size, male_of_stock, female_of_stock
 	) values (
 	 current_date,
-	 ${size},
-	 ${male_of_stock},
-	 ${female_of_stock}
+	 #{size},
+	 #{male_of_stock},
+	 #{female_of_stock}
 	 )
 	</insert>
 	
+	<update id="totalUpdate">
+	update mice_total
+	set males_total = #{males_total},females_total = #{females_total}
+	where size = ${size}
+	</update>
+	
 	<update id="update">
 	update adult_mice
-	set male_of_stock = ${male_of_stock},female_of_stock = ${female_of_stock}
+	set male_of_stock = #{male_of_stock},female_of_stock = #{female_of_stock}
 	where id = ${id}
 	</update>
 	

@@ -10,14 +10,17 @@ import com.example.demo.entity.MouseEntity;
 @Mapper
 public interface MouseRepository {
 
-	List<MouseEntity> select();
+	List<MouseEntity> selectAll();
 	
 	MiceTotalEntity selectTotal(String size);
 	
-	boolean insert(MouseEntity mouseEntity);
+	MouseEntity selectOne(MouseEntity mouseEntity);
+	
+	void insert(MouseEntity mouseEntity);
+	
+	void totalUpdate(MiceTotalEntity miceTotalEntity);
 	
 	void update(MouseEntity mouseEntity);
 	
 	void delete(MouseEntity mouseEntity);
-	
 }
