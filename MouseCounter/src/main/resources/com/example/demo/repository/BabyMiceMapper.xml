@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.repository.BabyMiceMapper">
+	<select id="selectAll" resultType="com.example.demo.entity.BabyMiceEntity">
+	select *
+	from baby_mice
+	</select>
+	
+	<insert id="insert">
+	insert into baby_mice (
+	registration_date, size, litters
+	) values (
+	 current_date,
+	 'pink',
+	 #{litters}
+	 )
+	</insert>
+	
+	<update id="autoUpdate">
+	update baby_mice
+	set size = #{size}
+	where id = ${id}
+	</update>
+	
+</mapper>

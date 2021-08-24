@@ -7,6 +7,10 @@ table,th,td{
 	border : solid 2px  #FFD5EA;
 }
 
+.right{
+	text-align: right;
+}
+
 .total{
 	background-color : pink;
 }

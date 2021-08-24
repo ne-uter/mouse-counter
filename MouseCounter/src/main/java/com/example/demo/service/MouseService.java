@@ -6,20 +6,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.AdultMiceEntity;
 import com.example.demo.entity.MiceTotalEntity;
-import com.example.demo.entity.MouseEntity;
-import com.example.demo.repository.MouseRepository;
+import com.example.demo.repository.AdultMiceMapper;
 
 @Service
 public class MouseService {
 	
 	@Autowired
-	private MouseRepository mouseRepository;
+	private AdultMiceMapper adultMiceMapper;
 	@Autowired
 	private SizeConverter sizeConverter;
 	
-	public List<MouseEntity> selectAll() {
-		return mouseRepository.selectAll();
+	public List<AdultMiceEntity> selectLatest10() {
+		return adultMiceMapper.selectLatest10();
 	}
 	public List<MiceTotalEntity> miceTotal() {
 		List<MiceTotalEntity> totalList = new ArrayList<MiceTotalEntity>();
@@ -28,42 +28,42 @@ public class MouseService {
 		sizeList.add("'ヤング'");
 		sizeList.add("'ホッパー'");
 		for (String string : sizeList) {
-			totalList.add(mouseRepository.selectTotal(string));
+			totalList.add(adultMiceMapper.selectTotal(string));
 		}
 		return totalList;
 	}
 	
-	public void mouseRegister(MouseEntity mouseEntity) {
-		mouseRepository.insert(mouseEntity);
+	public void mouseRegister(AdultMiceEntity mouseEntity) {
+		adultMiceMapper.insert(mouseEntity);
 		totalCalculation(mouseEntity);
 	}
 	
-	public void mouseDataUpdate(MouseEntity mouseEntity) {
-		mouseRepository.update(mouseEntity);
+	public void mouseDataUpdate(AdultMiceEntity mouseEntity) {
+		adultMiceMapper.update(mouseEntity);
 		totalCalculationCorrection(mouseEntity);
 	}
 	
-	public void mouseDataDelete(MouseEntity mouseEntity) {
-		mouseRepository.selectOne(mouseEntity);
+	public void mouseDataDelete(AdultMiceEntity mouseEntity) {
+		adultMiceMapper.selectOne(mouseEntity);
 		totalCalculationCorrection(mouseEntity);
-		mouseRepository.delete(mouseEntity);
+		adultMiceMapper.delete(mouseEntity);
 	}
 	
-	public void totalCalculation(MouseEntity mouseEntity) {
+	public void totalCalculation(AdultMiceEntity mouseEntity) {
 		//登録された変更値を合計値に合算してテーブルに戻す
-		MiceTotalEntity totalEntity = mouseRepository.selectTotal(sizeConverter.sizeConverter1(mouseEntity));
+		MiceTotalEntity totalEntity = adultMiceMapper.selectTotal(sizeConverter.sizeConverter1(mouseEntity));
 		totalEntity.setMales_total(totalEntity.getMales_total() + mouseEntity.getMale_of_stock());
 		totalEntity.setFemales_total(totalEntity.getFemales_total() + mouseEntity.getFemale_of_stock());
 		totalEntity.setSize(sizeConverter.sizeConverter2(mouseEntity));
-		mouseRepository.totalUpdate(totalEntity);
+		adultMiceMapper.totalUpdate(totalEntity);
 	}
-	public void totalCalculationCorrection(MouseEntity mouseEntity) {
-		mouseEntity = mouseRepository.selectOne(mouseEntity);
-		MiceTotalEntity totalEntity = mouseRepository.selectTotal(sizeConverter.sizeConverter1(mouseEntity));
+	public void totalCalculationCorrection(AdultMiceEntity mouseEntity) {
+		mouseEntity = adultMiceMapper.selectOne(mouseEntity);
+		MiceTotalEntity totalEntity = adultMiceMapper.selectTotal(sizeConverter.sizeConverter1(mouseEntity));
 		totalEntity.setMales_total(totalEntity.getMales_total() - mouseEntity.getMale_of_stock());
 		totalEntity.setFemales_total(totalEntity.getFemales_total() - mouseEntity.getFemale_of_stock());
 		totalEntity.setSize(sizeConverter.sizeConverter2(mouseEntity));
-		mouseRepository.totalUpdate(totalEntity);
+		adultMiceMapper.totalUpdate(totalEntity);
 		
 	}
 }

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.entity.AdultMiceEntity;
+import com.example.demo.entity.BabyMiceEntity;
 import com.example.demo.entity.MiceTotalEntity;
-import com.example.demo.entity.MouseEntity;
+import com.example.demo.service.BabyMiceService;
 import com.example.demo.service.MouseService;
 
 @Controller
@@ -21,9 +24,12 @@ public class MCController {
 	@Autowired
 	MouseService mouseService; //Serviceインスタンス呼び出す用
 	
+	@Autowired
+	BabyMiceService babyMiceService;
+	
 	@ModelAttribute
-	MouseEntity entity() {
-		return new MouseEntity();
+	AdultMiceEntity entity() {
+		return new AdultMiceEntity();
 	}
 	
 	@ModelAttribute
@@ -33,43 +39,55 @@ public class MCController {
 	
 	//アクセスすると一覧表示
 	@GetMapping("/")
-	public String index(Model model) {
-		List<MouseEntity> list = mouseService.selectAll();
-		model.addAttribute("mouse", list);
+	public String index(Model model, BabyMiceEntity babyMiceEntity) {
+		List<AdultMiceEntity> list = mouseService.selectLatest10();
+		model.addAttribute("adult", list);
 		List<MiceTotalEntity> totalList = mouseService.miceTotal();
 		model.addAttribute("total", totalList);
+		List<BabyMiceEntity> babiesList = babyMiceService.selectAll();
+		model.addAttribute("baby", babiesList);
+		Map<String, Integer> babiesTotal = babyMiceService.babiesTotal();
+		model.addAttribute("babiesTotal", babiesTotal);
 		return "view";
 	}
 	
+	@PostMapping(value = "/", params = "pinkLitters")
+	public String postPink(@Validated BabyMiceEntity babyMiceEntity,BindingResult bindingResult,Model model) {
+		if (bindingResult.hasErrors()) {
+	
+			return index(model, babyMiceEntity);
+		}
+		babyMiceService.babyRegister(babyMiceEntity);
+		return "redirect:/";
+	}
+	
+	
 	//データ登録
 	@PostMapping(value = "/", params = "create")
-	public String postCreate(@Validated MouseEntity mouseEntity,BindingResult bindingResult,Model model) {
+	public String postCreate(@Validated AdultMiceEntity mouseEntity,BindingResult bindingResult,Model model) {
 		validation(mouseEntity, bindingResult);
 		mouseService.mouseRegister(mouseEntity);
-		index(model); //表をリロード
-		return "redirect:/";
+		return "redirect:/"; //表をリロードし、F5した時にフォームの再送信を防ぐ
 	}
 	
 	//データ更新
 	@PostMapping(value = "/", params = "update")
-	public String postUpdate(@Validated MouseEntity mouseEntity,BindingResult bindingResult,Model model) {
+	public String postUpdate(@Validated AdultMiceEntity mouseEntity,BindingResult bindingResult,Model model) {
 		validation(mouseEntity, bindingResult);
 		mouseService.mouseDataUpdate(mouseEntity);
-		index(model);
 		return "redirect:/";
 	}
 	
 	//データ削除
 	@PostMapping(value = "/", params = "delete")
-	public String postDelete(@Validated MouseEntity mouseEntity,BindingResult bindingResult,Model model) {
+	public String postDelete(@Validated AdultMiceEntity mouseEntity,BindingResult bindingResult,Model model) {
 		validation(mouseEntity, bindingResult);
 		mouseService.mouseDataDelete(mouseEntity);
-		index(model);
 		return "redirect:/";
 	}
 	
 	//入力チェック(♂もしくは♀の匹数が空で送られてきたら0を代入する)
-	private void validation(MouseEntity mouseEntity,BindingResult bindingResult) {
+	private void validation(AdultMiceEntity mouseEntity,BindingResult bindingResult) {
 		if (bindingResult.hasFieldErrors("male_of_stock")) {
 			mouseEntity.setMale_of_stock(0);
 		}

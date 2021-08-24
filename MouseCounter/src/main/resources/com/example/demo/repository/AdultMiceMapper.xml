@@ -2,10 +2,15 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.repository.MouseRepository">
-	<select id="selectAll" resultType="com.example.demo.entity.MouseEntity">
+<mapper namespace="com.example.demo.repository.AdultMiceMapper">
+	<select id="selectLatest10" resultType="com.example.demo.entity.AdultMiceEntity">
 	select *
-	from adult_mice;
+	from (
+		select *
+		from adult_mice
+		order by id desc
+		limit 10 )
+		as latest10 order by id;
 	</select>
 	
 	<select id="selectTotal" resultType="com.example.demo.entity.MiceTotalEntity">
@@ -14,7 +19,7 @@
 	where size = ${size}
 	</select>
 	
-	<select id="selectOne" resultType="com.example.demo.entity.MouseEntity">
+	<select id="selectOne" resultType="com.example.demo.entity.AdultMiceEntity">
 	select *
 	from adult_mice
 	where id = ${id}

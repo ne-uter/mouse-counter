@@ -2,14 +2,14 @@ package com.example.demo.service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.MouseEntity;
+import com.example.demo.entity.AdultMiceEntity;
 
 @Service
 public class SizeConverter {
 	
 	private String sizeConversion;
 
-	public String sizeConverter1(MouseEntity mouseEntity) {
+	public String sizeConverter1(AdultMiceEntity mouseEntity) {
 		if (mouseEntity.getSize().equals("adult")) {
 			sizeConversion = "'アダルト'";
 		} else if (mouseEntity.getSize().equals("young")) {
@@ -19,7 +19,7 @@ public class SizeConverter {
 		}
 		return getSizeConversion();
 	}
-	public String sizeConverter2(MouseEntity mouseEntity) {
+	public String sizeConverter2(AdultMiceEntity mouseEntity) {
 		if (mouseEntity.getSize().equals("アダルト")) {
 			sizeConversion = "'アダルト'";
 		} else if (mouseEntity.getSize().equals("ヤング")) {

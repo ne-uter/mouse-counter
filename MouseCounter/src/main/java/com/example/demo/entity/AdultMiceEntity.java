@@ -2,7 +2,7 @@ package com.example.demo.entity;
 
 import javax.validation.constraints.NotNull;
 
-public class MouseEntity {
+public class AdultMiceEntity {
 	private int id;
 	private String registration_date;
 	private String size;

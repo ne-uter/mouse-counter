@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" name="viewport" content="width=device-width">
 <link th:href="@{/css/albino.css}" rel="stylesheet" >
 <title>まうすかうんたー</title>
 </head>
@@ -15,12 +15,12 @@
 		<th>♂</th>
 		<th>♀</th>
 	</tr>
-	<tr th:each="m: ${mouse}">
-		<td th:text="${m.id}"></td>
-		<td th:text="${m.registration_date}"></td>
-		<td th:text="${m.size}"></td>
-		<td th:text="${m.male_of_stock}"></td>
-		<td th:text="${m.female_of_stock}"></td>
+	<tr th:each="a: ${adult}">
+		<td th:text="${a.id}" class="right"></td>
+		<td th:text="${a.registration_date}"></td>
+		<td th:text="${a.size}"></td>
+		<td th:text="${a.male_of_stock}" class="right"></td>
+		<td th:text="${a.female_of_stock}" class="right"></td>
 	</tr>
 		<tr  class="total">
 		<td colspan="2" rowspan="4" align="center">合計</td>
@@ -30,12 +30,47 @@
 	</tr>
 	<tr th:each="t: ${total}"  class="total">
 		<td th:text="${t.size}"></td>
-		<td th:text="${t.males_total}"></td>
-		<td th:text="${t.females_total}"></td>
+		<td th:text="${t.males_total}" class="right"></td>
+		<td th:text="${t.females_total}" class="right"></td>
 	</tr>
 </table>
-<p>離乳したマウスの数を入力するでちゅう</p>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>日付</th>
+		<th>サイズ</th>
+		<th>腹数</th>
+	</tr>
+	<tr th:each="b: ${baby}">
+		<td th:text="${b.id}" class="rigtht"></td>
+		<td th:text="${b.registration_date}"></td>
+		<td th:text="${b.size}"></td>
+		<td th:text="${b.litters}" class="right"></td>
+	</tr>
+		<tr  class="total">
+		<td colspan="2" rowspan="4" align="center">合計</td>
+		<th>サイズ</th>
+		<th>腹数</th>
+	</tr>
+	<tr th:each="bt: ${babiesTotal}"  class="total">
+		<td th:text="${bt.key}"></td>
+		<td th:text="${bt.value}" class="right"></td>
+	</tr>
+</table>
+<form method="post" action="/" th:object="${babyMiceEntity}">
+	<p>新しく産まれた腹数を入力するでちゅう</p>
+	<label>
+		ピンク:
+		<input type="number" name="litters">
+		腹
+	</label>
+	<button type="submit" name="pinkLitters">送信するでちゅう</button>
+	<span th:if="${#fields.hasErrors('litters')}" th:errors="*{litters}" style="color:red">
+	</span>
+</form>
+<br>
 <form method="post" action="/">
+	<p>離乳したマウスの数を入力するでちゅう</p>
 	<select name="size">
 		<option value="hopper">ホッパー</option>
 		<option value="young">ヤング</option>
