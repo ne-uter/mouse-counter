@@ -39,7 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers("/login").permitAll()
 				.anyRequest().authenticated();
-		http.csrf().disable();//一時的なやつ
 		
 		http
 			.formLogin()
@@ -49,6 +48,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("user_id")
 				.passwordParameter("password")
 				.defaultSuccessUrl("/", true);
+		
+		http
+			.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/login?logout");
 	}
 	
 	protected void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception{

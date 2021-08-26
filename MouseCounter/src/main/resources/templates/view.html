@@ -57,7 +57,7 @@
 		<td th:text="${bt.value}" class="right"></td>
 	</tr>
 </table>
-<form method="post" action="/" th:object="${babyMiceEntity}">
+<form method="post" th:action="@{/}" th:object="${babyMiceEntity}">
 	<p>新しく産まれた腹数を入力するでちゅう</p>
 	<label>
 		ピンク:
@@ -69,7 +69,7 @@
 	</span>
 </form>
 <br>
-<form method="post" action="/">
+<form method="post" th:action="@{/}">
 	<p>離乳したマウスの数を入力するでちゅう</p>
 	<select name="size">
 		<option value="hopper">ホッパー</option>
@@ -87,7 +87,7 @@
 	<input type="submit" name="create" value="送信するでちゅう" class="inputButton">
 </form>
 <br>
-<form method="post" action="/">
+<form method="post" th:action="@{/}">
 <p>IDを指定して書き替えられるでちゅう</p>
 	<label>
 		ID:
@@ -104,7 +104,11 @@
 	<br>
 	<button type="submit" name="update">登録済みデータの変更</button>
 	<button type="submit" name="delete">登録済みデータの削除</button>
-	<br>
+</form>
+<br>
+<br>
+<form  th:action="@{/logout}" method="post">
+	<button type="submit">ログアウト</button>
 </form>
 </body>
 </html>

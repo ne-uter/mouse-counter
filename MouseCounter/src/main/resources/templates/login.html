@@ -8,8 +8,8 @@
 <body>
 <h1>ログインページ</h1>
 <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']}!= null"
-th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" style="color:red">
-ログインエラーメッセージ</p>
+th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" style="color:red"></p>
+<p th:if="${param.logout}">ᘛ⁐̤ᕐᐷ ログアウト完了、また来るでちゅう</p>
 <form th:action="@{/login}" method="post">
 	<p>ユーザーID</p>
 	<input type="text" name="user_id">
