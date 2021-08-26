@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"name="viewport" content="width=device-width">
+<link th:href="@{/css/albino.css}" rel="stylesheet" >
+<title>まうすかうんたーログインページ</title>
+</head>
+<body>
+<h1>ログインページ</h1>
+<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']}!= null"
+th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" style="color:red">
+ログインエラーメッセージ</p>
+<form th:action="@{/login}" method="post">
+	<p>ユーザーID</p>
+	<input type="text" name="user_id">
+	<p>パスワード</p>
+	<input type="password" name="password">
+	<button type="submit" name="login">ログイン</button>
+</form>
+</body>
+</html>
