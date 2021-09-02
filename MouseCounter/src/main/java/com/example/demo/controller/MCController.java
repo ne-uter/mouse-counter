@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +50,18 @@ public class MCController {
 		model.addAttribute("baby", babiesList);
 		Map<String, Integer> babiesTotal = babyMiceService.babiesTotal();
 		model.addAttribute("babiesTotal", babiesTotal);
+		model.addAttribute("weaning", babyMiceService.getWeaningSet());
+		babyMiceService.growth();
 		return "view";
+	}
+	
+	//受け取ったIDのホッパーの行を削除して巣立たせる
+	@PostMapping(value = "/", params = "deleteHopper")
+	public String postDeleteHopper(BabyMiceEntity babyMiceEntity,Model model,HttpServletRequest request) {
+		int id = Integer.valueOf(request.getParameter("deleteHopper"));
+		babyMiceService.deleteHopper(id);
+		babyMiceService.setWeaningSet(id);
+		return "redirect:/";
 	}
 	
 	@PostMapping(value = "/", params = "pinkLitters")

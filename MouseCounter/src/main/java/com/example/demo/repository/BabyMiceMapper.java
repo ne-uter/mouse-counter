@@ -11,6 +11,8 @@ public interface BabyMiceMapper {
 
 	List<BabyMiceEntity> selectAll();
 	
+	void deleteHopper(int id);
+	
 	void insert(BabyMiceEntity babyMiceEntity);
 	
 	void update(BabyMiceEntity babyMiceEntity);

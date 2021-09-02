@@ -10,7 +10,7 @@
 <table>
 	<tr>
 		<th>ID</th>
-		<th>日付</th>
+		<th>登録日</th>
 		<th>サイズ</th>
 		<th>♂</th>
 		<th>♀</th>
@@ -37,13 +37,13 @@
 <table>
 	<tr>
 		<th>ID</th>
-		<th>日付</th>
+		<th>生まれた日付</th>
 		<th>サイズ</th>
 		<th>腹数</th>
 	</tr>
 	<tr th:each="b: ${baby}">
 		<td th:text="${b.id}" class="rigtht"></td>
-		<td th:text="${b.registration_date}"></td>
+		<td th:text="${b.birthday}"></td>
 		<td th:text="${b.size}"></td>
 		<td th:text="${b.litters}" class="right"></td>
 	</tr>
@@ -57,6 +57,18 @@
 		<td th:text="${bt.value}" class="right"></td>
 	</tr>
 </table>
+<div th:unless="${weaning.isEmpty()}" style="color:red">ID:
+	<th:block th:each="w: ${weaning}">
+		<span th:text="${w}"></span>
+		<span th:unless="${wStat.last}">,</span>
+	</th:block>
+	の仔達の数を数えたら離乳させるでちゅう
+	<form method="post" th:action="@{/}">
+		<span th:each="w: ${weaning}">
+			<button type="submit" name="deleteHopper" th:value="${w}" th:text="'ID:' + ${w} + 'を離乳'"></button>
+		</span>
+	</form>
+</div>
 <form method="post" th:action="@{/}" th:object="${babyMiceEntity}">
 	<p>新しく産まれた腹数を入力するでちゅう</p>
 	<label>
@@ -70,7 +82,7 @@
 </form>
 <br>
 <form method="post" th:action="@{/}">
-	<p>離乳したマウスの数を入力するでちゅう</p>
+	<p>離乳済みマウスの数を入力するでちゅう</p>
 	<select name="size">
 		<option value="hopper">ホッパー</option>
 		<option value="young">ヤング</option>
@@ -88,7 +100,7 @@
 </form>
 <br>
 <form method="post" th:action="@{/}">
-<p>IDを指定して書き替えられるでちゅう</p>
+<p>離乳済みマウスのIDを指定して書き替えられるでちゅう</p>
 	<label>
 		ID:
 		<input type="number" name="id" required>

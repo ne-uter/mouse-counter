@@ -6,7 +6,7 @@ import javax.validation.constraints.Positive;
 public class BabyMiceEntity {
 
 	private int id;
-	private String registration_date;
+	private String birthday;
 	private String size;
 	@NotNull(message = "正の整数を入力してください")
 	@Positive(message = "正の整数を入力するでちゅう")
@@ -18,11 +18,11 @@ public class BabyMiceEntity {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getRegistration_date() {
-		return registration_date;
+	public String getBirthday() {
+		return birthday;
 	}
-	public void setRegistration_date(String registration_date) {
-		this.registration_date = registration_date;
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 	public String getSize() {
 		return size;

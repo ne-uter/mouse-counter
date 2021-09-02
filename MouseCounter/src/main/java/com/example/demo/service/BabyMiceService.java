@@ -3,8 +3,10 @@ package com.example.demo.service;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,12 +14,25 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.BabyMiceEntity;
 import com.example.demo.repository.BabyMiceMapper;
-
 @Service
 public class BabyMiceService {
 
+	private Set<Integer> weaningSet = new LinkedHashSet<Integer>();
+	
 	@Autowired
 	BabyMiceMapper babyMiceMapper;
+	
+	public Set<Integer> getWeaningSet() {
+		return weaningSet;
+	}
+	
+	public void setWeaningSet(int id) {
+		this.weaningSet.remove(id);
+	}
+	
+	public void deleteHopper(int id) {
+		babyMiceMapper.deleteHopper(id);
+	}
 	
 	public List<BabyMiceEntity> selectAll() {
 		return babyMiceMapper.selectAll();
@@ -57,14 +72,15 @@ public class BabyMiceService {
 		SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
 		
 		for (BabyMiceEntity l : list) {
-			if (l.getRegistration_date().equals(sdf.format(pink.getTime()))) {
+			if (l.getBirthday().equals(sdf.format(pink.getTime()))) {
 				l.setSize("fuzzy");
 				babyMiceMapper.autoUpdate(l);
-			}else if (l.getRegistration_date().equals(sdf.format(fuzzy.getTime()))) {
+			}else if (l.getBirthday().equals(sdf.format(fuzzy.getTime()))) {
 				l.setSize("hopper");
 				babyMiceMapper.autoUpdate(l);
-			}else if (l.getSize().equals("hopper")) {
-				//離乳アラートを出す
+			}
+			if (l.getSize().equals("hopper")) {
+				this.weaningSet.add(l.getId());
 			}
 		}
 	}
