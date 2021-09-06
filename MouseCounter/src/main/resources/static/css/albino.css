@@ -2,6 +2,9 @@
 h1{
 	color : #FFD5EA;
 }
+strong{
+	color :pink;
+}
 
 table,th,td{
 	border : solid 2px  #FFD5EA;

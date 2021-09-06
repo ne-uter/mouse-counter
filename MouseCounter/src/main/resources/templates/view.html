@@ -7,6 +7,7 @@
 </head>
 <body>
 <h1>まうすかうんたー</h1>
+<strong>離乳済み一覧</strong>
 <table>
 	<tr>
 		<th>ID</th>
@@ -34,6 +35,49 @@
 		<td th:text="${t.females_total}" class="right"></td>
 	</tr>
 </table>
+<form method="post" th:action="@{/}">
+	<p>離乳済みマウスの数を入力するでちゅう</p>
+	<select name="size">
+		<option value="hopper">ホッパー</option>
+		<option value="young">ヤング</option>
+		<option value="adult">アダルト</option>
+	</select>
+	<br>
+	<label>
+		♂:
+		<input type="number" name="male_of_stock">
+	</label>
+	<br>
+	<label>
+		♀:
+		<input type="number" name="female_of_stock">
+	</label>
+	<input type="submit" name="create" value="送信するでちゅう" class="inputButton">
+</form>
+<br>
+<form method="post" th:action="@{/}">
+<p>離乳済みマウスのIDを指定して書き替えられるでちゅう</p>
+	<label>
+		ID:
+		<input type="number" name="id" required>
+	</label>
+	<br>
+	<label>
+		♂:
+		<input type="number" name="male_of_stock">
+	</label>
+	<br>
+	<label>
+		♀:
+		<input type="number" name="female_of_stock">
+	</label>
+	<br>
+	<button type="submit" name="update">登録済みデータの変更</button>
+	<button type="submit" name="delete">登録済みデータの削除</button>
+</form>
+<br>
+<br>
+<strong>離乳前一覧</strong>
 <table>
 	<tr>
 		<th>ID</th>
@@ -79,43 +123,6 @@
 	<button type="submit" name="pinkLitters">送信するでちゅう</button>
 	<span th:if="${#fields.hasErrors('litters')}" th:errors="*{litters}" style="color:red">
 	</span>
-</form>
-<br>
-<form method="post" th:action="@{/}">
-	<p>離乳済みマウスの数を入力するでちゅう</p>
-	<select name="size">
-		<option value="hopper">ホッパー</option>
-		<option value="young">ヤング</option>
-		<option value="adult">アダルト</option>
-	</select>
-	<label>
-		♂:
-		<input type="number" name="male_of_stock">
-	</label>
-	<label>
-		♀:
-		<input type="number" name="female_of_stock">
-	</label>
-	<input type="submit" name="create" value="送信するでちゅう" class="inputButton">
-</form>
-<br>
-<form method="post" th:action="@{/}">
-<p>離乳済みマウスのIDを指定して書き替えられるでちゅう</p>
-	<label>
-		ID:
-		<input type="number" name="id" required>
-	</label>
-	<label>
-		♂:
-		<input type="number" name="male_of_stock">
-	</label>
-	<label>
-		♀:
-		<input type="number" name="female_of_stock">
-	</label>
-	<br>
-	<button type="submit" name="update">登録済みデータの変更</button>
-	<button type="submit" name="delete">登録済みデータの削除</button>
 </form>
 <br>
 <br>
