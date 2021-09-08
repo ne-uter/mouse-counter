@@ -11,6 +11,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.BabyMiceEntity;
 import com.example.demo.repository.BabyMiceMapper;
@@ -62,6 +63,7 @@ public class BabyMiceService {
 	
 	
 	//毎日0時に判定を行い、一週間ごとに自動で成長させる
+	@Transactional(rollbackFor = Exception.class)
 	@Scheduled(cron = "0 0 0 * * *")
 	public void growth() {
 		List<BabyMiceEntity> list = babyMiceMapper.selectAll();
