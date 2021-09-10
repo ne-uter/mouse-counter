@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.AdultMiceEntity;
 import com.example.demo.entity.BabyMiceEntity;
@@ -77,17 +78,26 @@ public class MCController {
 	
 	//データ登録
 	@PostMapping(value = "/", params = "create")
-	public String postCreate(@Validated AdultMiceEntity mouseEntity,BindingResult bindingResult,Model model) {
+	public String postCreate(@Validated AdultMiceEntity mouseEntity,BindingResult bindingResult,Model model,RedirectAttributes redirectAttributes) {
 		validation(mouseEntity, bindingResult);
-		mouseService.mouseRegister(mouseEntity);
+		if ((mouseEntity.getMale_of_stock() == 0) && (mouseEntity.getFemale_of_stock() == 0)) {
+			redirectAttributes.addFlashAttribute("notEntered", true);
+			
+		}else {
+			mouseService.mouseRegister(mouseEntity);
+		}
 		return "redirect:/"; //表をリロードし、F5した時にフォームの再送信を防ぐ
 	}
 	
 	//データ更新
 	@PostMapping(value = "/", params = "update")
-	public String postUpdate(@Validated AdultMiceEntity mouseEntity,BindingResult bindingResult,Model model) {
+	public String postUpdate(@Validated AdultMiceEntity mouseEntity,BindingResult bindingResult,Model model,RedirectAttributes redirectAttributes) {
 		validation(mouseEntity, bindingResult);
-		mouseService.mouseDataUpdate(mouseEntity);
+		if ((mouseEntity.getMale_of_stock() == 0) && (mouseEntity.getFemale_of_stock() == 0)) {
+			redirectAttributes.addFlashAttribute("notEntered", true);
+		}else {
+			mouseService.mouseDataUpdate(mouseEntity);
+		}
 		return "redirect:/";
 	}
 	

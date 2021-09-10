@@ -35,6 +35,7 @@
 		<td th:text="${t.females_total}" class="right"></td>
 	</tr>
 </table>
+<p th:if="${notEntered}" th:text="'♂と♀の数が未入力でちゅう'" style="color:red">1</p>
 <form method="post" th:action="@{/}">
 	<p>離乳済みマウスの数を入力するでちゅう</p>
 	<select name="size">
