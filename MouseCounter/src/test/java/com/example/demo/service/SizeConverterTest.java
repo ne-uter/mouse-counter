@@ -22,7 +22,7 @@ class SizeConverterTest {
 	
 	@Test
 	void adultをカタカナにしてにシングルクォーテーションを付けて返す() {
-		when(mouseEntity.getSize()).thenReturn("adult");
+		doReturn("adult").when(mouseEntity).getSize();
 		String expected = "'アダルト'" ;
 		String actual = sizeConverter.sizeConverter1(mouseEntity);
 		assertEquals(expected, actual);
@@ -30,7 +30,7 @@ class SizeConverterTest {
 	
 	@Test
 	void youngをカタカナにしてにシングルクォーテーションを付けて返す() {
-		when(mouseEntity.getSize()).thenReturn("young");
+		doReturn("young").when(mouseEntity).getSize();
 		String expected = "'ヤング'" ;
 		String actual = sizeConverter.sizeConverter1(mouseEntity);
 		assertEquals(expected, actual);
@@ -38,7 +38,7 @@ class SizeConverterTest {
 	
 	@Test
 	void hopperをカタカナにしてにシングルクォーテーションを付けて返す() {
-		when(mouseEntity.getSize()).thenReturn("hopper");
+		doReturn("hopper").when(mouseEntity).getSize();
 		String expected = "'ホッパー'" ;
 		String actual = sizeConverter.sizeConverter1(mouseEntity);
 		assertEquals(expected, actual);
@@ -46,7 +46,7 @@ class SizeConverterTest {
 	
 	@Test
 	void アダルトにシングルクォーテーションを付けて返す() {
-		when(mouseEntity.getSize()).thenReturn("アダルト");
+		doReturn("アダルト").when(mouseEntity).getSize();
 		String expected = "'アダルト'" ;
 		String actual = sizeConverter.sizeConverter2(mouseEntity);
 		assertEquals(expected, actual);
@@ -54,7 +54,7 @@ class SizeConverterTest {
 	
 	@Test
 	void ヤングにシングルクォーテーションを付けて返す() {
-		when(mouseEntity.getSize()).thenReturn("ヤング");
+		doReturn("ヤング").when(mouseEntity).getSize();
 		String expected = "'ヤング'" ;
 		String actual = sizeConverter.sizeConverter2(mouseEntity);
 		assertEquals(expected, actual);
@@ -62,7 +62,7 @@ class SizeConverterTest {
 	
 	@Test
 	void ホッパーにシングルクォーテーションを付けて返す() {
-		when(mouseEntity.getSize()).thenReturn("ホッパー");
+		doReturn("ホッパー").when(mouseEntity).getSize();
 		String expected = "'ホッパー'" ;
 		String actual = sizeConverter.sizeConverter2(mouseEntity);
 		assertEquals(expected, actual);
