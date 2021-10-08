@@ -1,4 +1,8 @@
 @charset "UTF-8";
+body{
+	font-family:"Hiragino Kaku Gothic ProN";
+}
+
 h1{
 	color : #FFD5EA;
 }
