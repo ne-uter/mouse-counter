@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.AdultMiceEntity;
 import com.example.demo.entity.MiceTotalEntity;
@@ -32,17 +33,22 @@ public class MouseService {
 		}
 		return totalList;
 	}
-	
+	@Transactional(rollbackFor = Exception.class)
 	public void mouseRegister(AdultMiceEntity mouseEntity) {
 		adultMiceMapper.insert(mouseEntity);
 		totalCalculation(mouseEntity);
 	}
-	
+	@Transactional(rollbackFor = Exception.class)
 	public void mouseDataUpdate(AdultMiceEntity mouseEntity) {
+		AdultMiceEntity oldData = new AdultMiceEntity();
+		oldData.setId(mouseEntity.getId());
+		oldData = adultMiceMapper.selectOne(oldData);
+		totalCalculationCorrection(oldData);
+		mouseEntity.setSize(oldData.getSize());
 		adultMiceMapper.update(mouseEntity);
-		totalCalculationCorrection(mouseEntity);
+		totalCalculation(mouseEntity);
 	}
-	
+	@Transactional(rollbackFor = Exception.class)
 	public void mouseDataDelete(AdultMiceEntity mouseEntity) {
 		adultMiceMapper.selectOne(mouseEntity);
 		totalCalculationCorrection(mouseEntity);
