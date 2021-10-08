@@ -9,6 +9,11 @@ group = 'com.example'
 version = '1.0.2'
 sourceCompatibility = '8'
 
+
+bootWar {
+    archiveName 'MouseCounter.war'
+  }
+
 repositories {
 	mavenCentral()
 }
